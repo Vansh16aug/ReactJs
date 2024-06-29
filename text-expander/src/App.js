@@ -16,7 +16,7 @@ export default function App() {
         collapsedNumWords={20}
         expandButtonText="Show text"
         collapseButtonText="Collapse text"
-        buttonColor="#ff6622"
+        buttonColor="#ff6625"
       >
         Space travel requires some seriously amazing technology and
         collaboration between countries, private companies, and international
