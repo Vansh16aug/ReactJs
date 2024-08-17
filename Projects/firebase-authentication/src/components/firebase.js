@@ -4,7 +4,7 @@ import {getAuth} from "firebase/auth";  // to fetch the data (For google login)
 import {getFirestore} from "firebase/firestore"; // to fetch the data from the database
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBiS2il5WFUk4uOz6hYWwhuO_xBOcOD3BY",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "authentication-40dd8.firebaseapp.com",
   projectId: "authentication-40dd8",
   storageBucket: "authentication-40dd8.appspot.com",
