@@ -21,8 +21,11 @@ function Body() {
   const getRestaurants = async () => {
     try {
       const response = await fetch("https://jsonifyyy.com/restros");
-      const data = await response.json(); // Destructuring the data
-      console.log(data);
+      const { data } = await response.json(); // Destructuring the data
+      // console.log(data);
+      // console.log(data[0].menu); // array of response
+      // console.log(data[0].info);  // array of response
+      // console.log(data[0].info.name); // value -> Behrouz Biryani
       setAllRestaurants(data);
       setFilteredRestaurants(data);
     } catch (error) {
@@ -58,9 +61,11 @@ function Body() {
         {/* {console.log(info)} */}
         {filteredRestaurants?.length > 0 ? (
           filteredRestaurants.map((restaurant) =>
-            restaurant?.data ? (
-              <RestaurantCard key={restaurant.data._id} {...restaurant.data} />
-            ) : null
+              <RestaurantCard
+                key={restaurant._id} // Use info._id as the unique key
+                info={restaurant.info} // Pass the info object
+                menu={restaurant.menu}
+              />
           )
         ) : (
           <p>No restaurants found</p>
