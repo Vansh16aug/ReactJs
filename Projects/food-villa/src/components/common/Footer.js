@@ -3,11 +3,8 @@ const Footer = () => {
   return (
     <div className="footer">
       Created By
-      <i class="fa-solid fa-heart"></i>
-      <a href="">
-        Chetan Nada
-      </a>
-      <i class="fa-solid fa-copyright"></i>
+      <i className="fa-solid fa-heart"></i>
+      <i className="fa-solid fa-copyright"></i>
       {year}
       <strong>
         Food<span>Fire</span>

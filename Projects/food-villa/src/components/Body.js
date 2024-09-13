@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./common/Shimmer";
+import { Link } from "react-router-dom";
 
 function Body() {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -22,10 +23,6 @@ function Body() {
     try {
       const response = await fetch("https://jsonifyyy.com/restros");
       const { data } = await response.json(); // Destructuring the data
-      // console.log(data);
-      // console.log(data[0].menu); // array of response
-      // console.log(data[0].info);  // array of response
-      // console.log(data[0].info.name); // value -> Behrouz Biryani
       setAllRestaurants(data);
       setFilteredRestaurants(data);
     } catch (error) {
@@ -60,13 +57,14 @@ function Body() {
       <div className="restaurant-list">
         {/* {console.log(info)} */}
         {filteredRestaurants?.length > 0 ? (
-          filteredRestaurants.map((restaurant) =>
+          filteredRestaurants.map((restaurant) => (
+            <Link to={`/restraunt/${restaurant._id}`} key={restaurant._id}>
               <RestaurantCard
-                key={restaurant._id} // Use info._id as the unique key
                 info={restaurant.info} // Pass the info object
                 menu={restaurant.menu}
               />
-          )
+            </Link>
+          ))
         ) : (
           <p>No restaurants found</p>
         )}
