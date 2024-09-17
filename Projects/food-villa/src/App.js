@@ -7,6 +7,7 @@ import ContactUs from "./components/common/Navigations/ContactUs";
 import Cart from "./components/common/Navigations/Cart";
 import Error from "./components/common/Error/Error";
 import RestrauntMenu from "./components/RestrauntMenu";
+import Profile from "./components/Profile";
 
 // Define the App component
 function App() {
@@ -32,6 +33,12 @@ export const appRouter = createBrowserRouter([
       {
         path: "about",
         element: <AboutUs />,
+        children: [
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
       },
       {
         path: "contact",

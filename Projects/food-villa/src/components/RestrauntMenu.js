@@ -8,6 +8,7 @@ const RestrauntMenu = () => {
 
   useEffect(() => {
     getRestrauntInfo();
+    // eslint-disable-next-line
   }, []);
 
   async function getRestrauntInfo() {

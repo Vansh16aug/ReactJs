@@ -2,7 +2,7 @@ const RestaurantCard = ({ info, menu }) => {
   const {
     areaName,
     avgRating,
-    cuisines,
+    // cuisines,
     imageUrl,
     isOpen,
     deliveryTime,
@@ -16,7 +16,7 @@ const RestaurantCard = ({ info, menu }) => {
         <h2>{name}</h2>
         <span className="flex flex-col">
           <h4>Rating: {avgRating} ⭐</h4>
-          <h4>Cuisines: {cuisines.join(", ")}</h4>
+          {/* <h4>Cuisines: {cuisines.join(", ")}</h4> */}
           <h4>Area: {areaName}</h4>
           <h4>Delivery Time: {deliveryTime} min</h4>
           <h4 className="bg-[#038C3E] text-white">
