@@ -1,48 +1,40 @@
 import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Shimmer from "./common/Shimmer";
 import { Link } from "react-router-dom";
+import { filterData } from "../utils/filter";
+import useRestraunt from "../customHooks/useRestraunt";
+import useInternetStatus from "../customHooks/useInternetStatus";
 
 function Body() {
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true); // New state for loading
 
-  function filterData(searchText) {
-    const filteredData = allRestaurants.filter((restaurant) =>
-      restaurant?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
-    );
-    return filteredData;
-  }
-
-  useEffect(() => {
-    getRestaurants();
-  }, []);
-
-  const getRestaurants = async () => {
-    try {
-      const response = await fetch("https://jsonifyyy.com/restros");
-      const { data } = await response.json();
-
-      // console.log("Fetched restaurant data:", data);
-      setAllRestaurants(data);
-      setFilteredRestaurants(data);
-      setLoading(false); // Data fetched, stop loading
-    } catch (error) {
-      console.error("Error fetching restaurants:", error);
-      setLoading(false); // Stop loading on error as well
-    }
-  };
+  //api calling
+  useRestraunt(setAllRestaurants, setFilteredRestaurants, setLoading);
 
   const handleSearch = (e) => {
     const searchValue = e.target.value;
     setSearchText(searchValue);
     // console.log(searchValue);
-    const filteredData = filterData(searchValue);
+    const filteredData = filterData(searchValue, allRestaurants);
     setFilteredRestaurants(filteredData);
     // console.log(filteredData);
   };
+
+  //if user is offline
+  const status = useInternetStatus();
+
+  if (status === false) {
+    return (
+      <h1>
+        🌐 You're currently offline. Please check your internet connection and
+        ensure your VPN is disabled if you're using one.⛔
+      </h1>
+    );
+  }
 
   // Render Shimmer while loading
   if (loading) {
@@ -73,10 +65,10 @@ function Body() {
       <div className="restaurant-list">
         {filteredRestaurants?.length > 0 ? (
           filteredRestaurants.map((restaurant) => (
-            <Link to={`/restraunt/${restaurant._id}`} key={restaurant._id}>
+            <Link to={`/restraunt/${restaurant?._id}`} key={restaurant?._id}>
               <RestaurantCard
-                info={restaurant.info} // Pass the info object
-                menu={restaurant.menu}
+                info={restaurant?.info} // Pass the info object
+                menu={restaurant?.menu}
               />
             </Link>
           ))

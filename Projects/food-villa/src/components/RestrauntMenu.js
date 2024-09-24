@@ -1,25 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Shimmer from "./common/Shimmer";
+import useRestrauntMenu from "../customHooks/useRestrauntMenu";
 
 const RestrauntMenu = () => {
   const { id } = useParams();
   const [restrauntInfo, setRestrauntInfo] = useState(null);
 
-  useEffect(() => {
-    getRestrauntInfo();
-    // eslint-disable-next-line
-  }, []);
-
-  async function getRestrauntInfo() {
-    try {
-      const response = await fetch(`https://jsonifyyy.com/restros/${id}`);
-      const data = await response.json();
-      setRestrauntInfo(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //api calling for menu of restraunts
+  useRestrauntMenu(id, setRestrauntInfo);
 
   return !restrauntInfo ? (
     <Shimmer />
@@ -39,7 +28,7 @@ const RestrauntMenu = () => {
         Menu:
         <h2>
           {restrauntInfo?.data?.menu.map((item) => (
-            <li key={item._id}>{item.name}</li>
+            <li key={item?._id}>{item?.name}</li>
           ))}
         </h2>
       </div>

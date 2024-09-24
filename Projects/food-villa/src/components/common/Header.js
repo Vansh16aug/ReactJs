@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Title from "../Title";
 import { Link } from "react-router-dom";
+import useInternetStatus from "../../customHooks/useInternetStatus";
 
 // const AuthenticatedHeader = () => {
 //   //API call to check if user is authenticated
@@ -9,6 +10,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const status = useInternetStatus();
   return (
     <div className="header">
       <Title />
@@ -26,12 +28,25 @@ const Header = () => {
           <Link to="/cart">
             <li>Cart</li>
           </Link>
-          <li>
-            <i className="fa-solid fa-cart-shopping"></i>
-          </li>
+          <Link to="/instamart">
+            <li>Instamart</li>
+          </Link>
         </ul>
       </div>
+      {/* online offline  */}
       <div>
+        <div
+          className="internetStatus"
+          style={{
+            backgroundColor: status ? "green" : "red",
+            width: "20px",
+            height: "20px",
+            borderRadius: "50%",
+            display: "inline-block",
+            marginRight: "10px",
+          }}
+        ></div>
+
         {isAuthenticated ? (
           <button onClick={() => setIsAuthenticated(false)}>Logout</button>
         ) : (
