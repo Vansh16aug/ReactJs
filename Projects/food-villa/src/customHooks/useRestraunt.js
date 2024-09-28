@@ -23,7 +23,7 @@ const useRestraunt = (
       setLoading(false); // Data fetched, stop loading
     } catch (error) {
       console.error("Error fetching restaurants:", error);
-      setLoading(false); // Stop loading on error as well
+      setLoading(false);
     }
   };
 };

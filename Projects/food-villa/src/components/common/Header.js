@@ -1,59 +1,96 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Title from "../Title";
 import { Link } from "react-router-dom";
 import useInternetStatus from "../../customHooks/useInternetStatus";
-
-// const AuthenticatedHeader = () => {
-//   //API call to check if user is authenticated
-//   return true;
-// }
+import UserContext from "../../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const status = useInternetStatus();
-  return (
-    <div className="header">
-      <Title />
-      <div className="nav-items">
-        <ul>
-          <Link to="/">
-            <li>Home</li>
-          </Link>
-          <Link to="/about">
-            <li>About</li>
-          </Link>
-          <Link to="/contact">
-            <li>Contact</li>
-          </Link>
-          <Link to="/cart">
-            <li>Cart</li>
-          </Link>
-          <Link to="/instamart">
-            <li>Instamart</li>
-          </Link>
-        </ul>
-      </div>
-      {/* online offline  */}
-      <div>
-        <div
-          className="internetStatus"
-          style={{
-            backgroundColor: status ? "green" : "red",
-            width: "20px",
-            height: "20px",
-            borderRadius: "50%",
-            display: "inline-block",
-            marginRight: "10px",
-          }}
-        ></div>
+  const { user } = useContext(UserContext);
+  const cartItems = useSelector((state) => state.cart.items);
 
+  return (
+    <header className="flex items-center justify-between p-2 shadow-md">
+      {/* Logo section */}
+      <Title />
+
+      {/* Navigation links */}
+      <nav>
+        <ul className="flex items-center space-x-6 text-black text-lg">
+          <li>
+            <Link
+              to="/"
+              className="hover:text-gray-300 transition-colors duration-300"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className="hover:text-gray-300 transition-colors duration-300"
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contact"
+              className="hover:text-gray-300 transition-colors duration-300"
+            >
+              Contact
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/cart"
+              className="hover:text-gray-300 transition-colors duration-300"
+            >
+              Cart {cartItems.length > 0 && `(${cartItems.length})`}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/instamart"
+              className="hover:text-gray-300 transition-colors duration-300"
+            >
+              Instamart
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Internet Status & Auth Button */}
+      <div className="flex items-center space-x-4">
+        {/* Online/offline indicator */}
+        <div
+          className={`internetStatus ${
+            status ? "bg-green-500" : "bg-red-500"
+          } w-4 h-4 rounded-full`}
+          title={status ? "Online" : "Offline"}
+        ></div>
+        <div className="font-mono">{user.name}</div>
+
+        {/* Authentication button */}
         {isAuthenticated ? (
-          <button onClick={() => setIsAuthenticated(false)}>Logout</button>
+          <button
+            className="bg-slate-300 text-black font-semibold py-2 px-4 rounded-md hover:bg-gray-200 transition duration-300"
+            onClick={() => setIsAuthenticated(false)}
+          >
+            Logout
+          </button>
         ) : (
-          <button onClick={() => setIsAuthenticated(true)}>Login</button>
+          <button
+            className="bg-slate-300 text-black font-semibold py-2 px-4 rounded-md hover:bg-gray-200 transition duration-300"
+            onClick={() => setIsAuthenticated(true)}
+          >
+            Login
+          </button>
         )}
       </div>
-    </div>
+    </header>
   );
 };
 

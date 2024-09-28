@@ -1,17 +1,16 @@
 import { lazy, Suspense } from "react";
 import Header from "./components/common/Header";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-// import Body from "./components/Body";
 import Footer from "./components/common/Footer";
-// import AboutUs from "./components/common/Navigations/AboutUs";
-// import ContactUs from "./components/common/Navigations/ContactUs";
-// import Cart from "./components/common/Navigations/Cart";
 import Error from "./components/common/Error/Error";
 import RestrauntMenu from "./components/RestrauntMenu";
 import Profile from "./components/Profile";
-// import Instamart from "./components/Instamart";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
-const Instamart = lazy(() => import("./components/Instamart"));
+const Instamart = lazy(() =>
+  import("./components/common/Navigations/Instamart")
+);
 const Body = lazy(() => import("./components/Body"));
 const AboutUs = lazy(() => import("./components/common/Navigations/AboutUs"));
 const ContactUs = lazy(() =>
@@ -21,11 +20,11 @@ const Cart = lazy(() => import("./components/common/Navigations/Cart"));
 // Define the App component
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Header />
       <Outlet />
       <Footer />
-    </div>
+    </Provider>
   );
 }
 

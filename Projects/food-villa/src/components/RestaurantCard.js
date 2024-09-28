@@ -10,31 +10,36 @@ const RestaurantCard = ({ info, menu }) => {
   } = info;
 
   return (
-    <div>
-      <div className="card">
-        <img src={imageUrl} alt={name} />
-        <h2>{name}</h2>
-        <span className="flex flex-col">
-          <h4>Rating: {avgRating} ⭐</h4>
-          {/* <h4>Cuisines: {cuisines.join(", ")}</h4> */}
-          <h4>Area: {areaName}</h4>
-          <h4>Delivery Time: {deliveryTime} min</h4>
-          <h4 className="bg-[#038C3E] text-white">
-            {isOpen ? "Open Now" : "Closed"}
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-60 mx-auto">
+      {/* Image */}
+      <img src={imageUrl} alt={name} className="h-40 w-full object-cover" />
+
+      {/* Restaurant Info */}
+      <div className="p-4">
+        <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
+
+        <div className="mt-2 text-sm text-gray-600">
+          <h4>
+            Rating:{" "}
+            <span className="font-bold text-yellow-500">{avgRating} ⭐</span>
           </h4>
-        </span>
-        {/* <div>
-          <h3>Menu:</h3>
-          {menu.map((item) => (
-            <div key={item._id} className="menu-item">
-              <h4>{item.name}</h4>
-               <p>{item.description}</p> 
-              <h4>{item.isVeg ? "Vegetarian" : "Non-Vegetarian"}</h4>
-              <h4>{item.category}</h4>
-              <h4>{item.price / 100} INR</h4>
-            </div>
-          ))}
-        </div> */}
+          {/* <h4>Cuisines: {cuisines.join(", ")}</h4> */}
+          <h4>
+            Area: <span className="font-bold">{areaName}</span>
+          </h4>
+          <h4>
+            Delivery Time: <span className="font-bold">{deliveryTime} min</span>
+          </h4>
+        </div>
+
+        {/* Open/Closed Status */}
+        <div
+          className={`mt-3 max-w-24  rounded-full text-center text-white ${
+            isOpen ? "bg-green-500" : "bg-red-500"
+          }`}
+        >
+          {isOpen ? "Open Now" : "Closed"}
+        </div>
       </div>
     </div>
   );
