@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Title from "../Title";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import useInternetStatus from "../../customHooks/useInternetStatus";
 import UserContext from "../../utils/UserContext";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ const Header = () => {
   const status = useInternetStatus();
   const { user } = useContext(UserContext);
   const cartItems = useSelector((state) => state.cart.items);
+  const location = useLocation(); // Get the current location
 
   return (
     <header className="flex items-center justify-between p-2 shadow-md">
@@ -22,7 +23,9 @@ const Header = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className={`hover:text-gray-300 transition-colors duration-300 p-2 ${
+                location.pathname === "/" ? "bg-gray-200 rounded-lg" : ""
+              }`} // Apply bg color if active
             >
               Home
             </Link>
@@ -30,7 +33,9 @@ const Header = () => {
           <li>
             <Link
               to="/about"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className={`hover:text-gray-300 transition-colors duration-300 p-2 ${
+                location.pathname === "/about" ? "bg-gray-200 rounded-lg" : ""
+              }`} // Apply bg color if active
             >
               About
             </Link>
@@ -38,7 +43,9 @@ const Header = () => {
           <li>
             <Link
               to="/contact"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className={`hover:text-gray-300 transition-colors duration-300 p-2 ${
+                location.pathname === "/contact" ? "bg-gray-200 rounded-lg" : ""
+              }`} // Apply bg color if active
             >
               Contact
             </Link>
@@ -46,7 +53,9 @@ const Header = () => {
           <li>
             <Link
               to="/cart"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className={`hover:text-gray-300 transition-colors duration-300 p-2 ${
+                location.pathname === "/cart" ? "bg-gray-200 rounded-lg" : ""
+              }`} // Apply bg color if active
             >
               Cart {cartItems.length > 0 && `(${cartItems.length})`}
             </Link>
@@ -54,7 +63,11 @@ const Header = () => {
           <li>
             <Link
               to="/instamart"
-              className="hover:text-gray-300 transition-colors duration-300"
+              className={`hover:text-gray-300 transition-colors duration-300 p-2 ${
+                location.pathname === "/instamart"
+                  ? "bg-gray-200 rounded-lg"
+                  : ""
+              }`} // Apply bg color if active
             >
               Instamart
             </Link>
