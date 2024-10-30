@@ -7,6 +7,8 @@ const Title = () => (
         className="logo h-12 w-auto hover:opacity-80 transition-opacity duration-300 ease-in-out"
         src={foodFireLogo}
         alt="Food Fire Logo"
+        width={20}
+        height={20}
       />
     </a>
   </div>

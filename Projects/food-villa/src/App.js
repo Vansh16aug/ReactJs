@@ -4,20 +4,18 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import Footer from "./components/common/Footer";
 import Error from "./components/common/Error/Error";
 import RestrauntMenu from "./components/RestrauntMenu";
-import Profile from "./components/Profile";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-
-const Instamart = lazy(() =>
-  import("./components/common/Navigations/Instamart")
-);
+import LoginComponent from "./components/auth/Login";
+import RegisterComponent from "./components/auth/Register";
+import Checkout from "./components/Checkout";
+import SuccessfulOrderPage from "./components/SuccessfulOrder";
 const Body = lazy(() => import("./components/Body"));
-const AboutUs = lazy(() => import("./components/common/Navigations/AboutUs"));
 const ContactUs = lazy(() =>
   import("./components/common/Navigations/ContactUs")
 );
 const Cart = lazy(() => import("./components/common/Navigations/Cart"));
-// Define the App component
+
 function App() {
   return (
     <Provider store={store}>
@@ -28,7 +26,6 @@ function App() {
   );
 }
 
-// Define the routes using createBrowserRouter
 export const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -43,24 +40,26 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "about",
-        element: (
-          <Suspense>
-            <AboutUs />
-          </Suspense>
-        ),
-        children: [
-          {
-            path: "profile",
-            element: <Profile />,
-          },
-        ],
-      },
-      {
         path: "contact",
         element: (
           <Suspense>
             <ContactUs />
+          </Suspense>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <Suspense>
+            <LoginComponent />
+          </Suspense>
+        ),
+      },
+      {
+        path: "register",
+        element: (
+          <Suspense>
+            <RegisterComponent />
           </Suspense>
         ),
       },
@@ -73,16 +72,24 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/restraunt/:id",
-        element: <RestrauntMenu />,
-      },
-      {
-        path: "/instamart",
+        path: "checkout",
         element: (
           <Suspense>
-            <Instamart />
+            <Checkout />
           </Suspense>
         ),
+      },
+      {
+        path: "order-success",
+        element: (
+          <Suspense>
+            <SuccessfulOrderPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/restraunt/:id",
+        element: <RestrauntMenu />,
       },
       {
         path: "*",

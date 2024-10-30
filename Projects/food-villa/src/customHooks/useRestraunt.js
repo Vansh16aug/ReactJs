@@ -8,7 +8,7 @@ const useRestraunt = (
 ) => {
   useEffect(() => {
     getRestaurants();
-    console.log("apicall");
+    // console.log("apicall");
     // eslint-disable-next-line
   }, []);
 

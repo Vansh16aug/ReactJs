@@ -1,20 +1,42 @@
+import { Heart, Copyright, Linkedin, Github } from "lucide-react";
+
 const Footer = () => {
   const year = new Date().getFullYear();
+
   return (
-    <div className="footer bg-gray-900 text-white py-4 text-center flex flex-col items-center space-y-2">
-      <p className="text-lg">
+    <footer className="mt-10 bg-gray-900 text-white py-6 flex flex-col items-center space-y-2">
+      <p className="text-lg flex items-center">
         Created with
-        <i className="fa-solid fa-heart text-red-500 mx-1"></i>
+        <Heart className="text-red-500 mx-1" aria-label="love" />
         by
         <strong className="ml-1">
-          Food<span className="text-yellow-400">Villa</span>
+          Goala <span className="text-yellow-400">Foods</span>
         </strong>
       </p>
-      <p className="text-sm">
-        <i className="fa-solid fa-copyright mr-1"></i>
+      <p className="text-sm flex items-center">
+        <Copyright className="mr-1" aria-label="copyright" />
         {year} FoodVilla. All rights reserved.
       </p>
-    </div>
+      <div className="flex space-x-4 mt-2">
+        <a
+          href="https://www.linkedin.com/in/vansh-kumar16aug/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <Linkedin className="text-white hover:text-blue-500" />
+        </a>
+        <a
+          href="https://github.com/Vansh16aug"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <Github className="text-white hover:text-gray-400" />
+        </a>
+      </div>
+    </footer>
   );
 };
+
 export default Footer;
